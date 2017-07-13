@@ -86,6 +86,10 @@ function DataLoader:getBatch(opt)
   -- pick an index of the datapoint to load next
   local img_batch_raw = torch.ByteTensor(batch_size, 3, 256, 256)
   local label_batch = torch.LongTensor(batch_size * seq_per_img, self.seq_length)
+  local category_batch = torch.LongTensor(batch_size, self.seq_length)
+  local full_category_batch = torch.LongTensor(batch_size, self.seq_length*6)
+  local bbox_batch = torch.LongTensor(batch_size, self.seq_length*6)
+  local bbox_orgin_batch = torch.LongTensor(batch_size, self.seq_length*6)
   local max_index = #split_ix
   local wrapped = false
   local infos = {}
@@ -102,6 +106,11 @@ function DataLoader:getBatch(opt)
     local img = self.h5_file:read('/images'):partial({ix,ix},{1,self.num_channels},
                             {1,self.max_image_size},{1,self.max_image_size})
     img_batch_raw[i] = img
+
+    category_batch[i] = self.h5_file:read('/category'):partial({ix,ix}, {1, self.seq_length})
+    full_category_batch[i] = self.h5_file:read('/full_category'):partial({ix,ix}, {1, self.seq_length*6})
+    bbox_batch[i] = self.h5_file:read('/bbox_resize'):partial({ix,ix}, {1, self.seq_length*6})
+    bbox_orgin_batch[i] = self.h5_file:read('/bbox'):partial({ix,ix}, {1, self.seq_length*6})
 
     -- fetch the sequence labels
     local ix1 = self.label_start_ix[ix]
@@ -136,6 +145,10 @@ function DataLoader:getBatch(opt)
   data.labels = label_batch:transpose(1,2):contiguous() -- note: make label sequences go down as columns
   data.bounds = {it_pos_now = self.iterators[split], it_max = #split_ix, wrapped = wrapped}
   data.infos = infos
+  data.category = category_batch
+  data.full_category = full_category_batch
+  data.bbox = bbox_batch
+  data.bbox_orgin = bbox_orgin_batch
   return data
 end
 
