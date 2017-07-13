@@ -7,7 +7,11 @@ OBJ2TEXT is a sequence-to-sequence model that takes object layout (sequence of p
  * `objname_location_image`, generate captions from a sequence of pairs of object names and bounding-box locations, and CNN visual features
  * `image` the default Neuraltalk2 implementation which generates captions from CNN visual features
  
-You can optionally use attention mechanism for generating from objclass, objname, and objname_location with the `-attention with_attention` option.
+For example, you can use the following shell command to run the proposed model OBJ2TEXT:
+```bash
+th train.lua -generate_from objname_location -input_h5 coco/cocotalk_withcats_withpos_yolo.h5 -input_json coco/cocotalk.json 
+```
+You can optionally use attention mechanism for generating from `objclass`, `objname`, and `objname_location` with the `-attention with_attention` option.
 
 
 # NeuralTalk2
