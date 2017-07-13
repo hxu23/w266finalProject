@@ -1,4 +1,31 @@
 
+# OBJ2TEXT
+### Generating captions from 
+Object classes:
+```bash
+$ th train_rnn_with_cnn_finetune.lua -gpuid 1 -input_h5 coco/cocotalk_withcats_withpos_yolo.h5 -input_json coco/cocotalk.json  -language_eval 1 -generate_from objclass -id objclass
+```
+
+Object names:
+```bash
+$ th train_rnn_with_cnn_finetune.lua -gpuid 1 -input_h5 coco/cocotalk_withcats_withpos_yolo.h5 -input_json coco/cocotalk.json  -language_eval 1 -generate_from objname -id objname
+```
+
+Object names + locations:
+```bash
+$ th train_rnn_with_cnn_finetune.lua -gpuid 2 -input_h5 coco/cocotalk_withcats_withpos_yolo.h5 -input_json coco/cocotalk.json  -language_eval 1 -generate_from objname_location -id objname_location
+```
+
+Object names + locations + image:
+```bash
+$ th train_rnn_with_cnn_finetune.lua -gpuid 0 -input_h5 coco/cocotalk_withcats_withpos_yolo.h5 -input_json coco/cocotalk.json  -language_eval 1 -generate_from objname_location_image -id objname_location_image
+```
+
+CNN image features (the default Neuraltalk2 implementation):
+```bash
+$ th train_rnn_with_cnn_finetune.lua -gpuid 3 -input_h5 coco/cocotalk_withcats_withpos_yolo.h5 -input_json coco/cocotalk.json  -language_eval 1 -generate_from image -id image
+```
+
 # NeuralTalk2
 
 **Update (September 22, 2016)**: The Google Brain team has [released the image captioning model](https://research.googleblog.com/2016/09/show-and-tell-image-captioning-open.html) of Vinyals et al. (2015). The core model is very similar to NeuralTalk2 (a CNN followed by RNN), but the Google release should work significantly better as a result of better CNN, some tricks, and more careful engineering. Find it under [im2txt](https://github.com/tensorflow/models/tree/master/im2txt/im2txt) repo in tensorflow. I'll leave this code base up for educational purposes and as a Torch implementation.
