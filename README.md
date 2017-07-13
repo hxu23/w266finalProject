@@ -1,30 +1,14 @@
 
 # OBJ2TEXT
-### Generating captions from 
-Object classes:
-```bash
-$ th train_rnn_with_cnn_finetune.lua -gpuid 1 -input_h5 coco/cocotalk_withcats_withpos_yolo.h5 -input_json coco/cocotalk.json  -language_eval 1 -generate_from objclass -id objclass
-```
+OBJ2TEXT is a sequence-to-sequence model that takes object layout (sequence of pairs of object names and locations) as input and generates a natural language description of the input layout. This repository contains code for running all the experiments in the paper “OBJ2TEXT: Generating Visually Descriptive Language from Object Layouts”. You can train different models by specifying different values for the option `-generate_from`:
+ * `objclass`, generate caption from a sequence of object classes (the set of object names with all duplicates removed)
+ * `objname`, generate caption from a sequence of object names
+ * `objname_location`, generate caption from a sequence of pairs of object names and bounding-box locations
+ * `objname_location_image`, generate captions from a sequence of pairs of object names and bounding-box locations, and CNN visual features
+ * `image` the default Neuraltalk2 implementation which generates captions from CNN visual features
+ 
+You can optionally use attention mechanism for generating from objclass, objname, and objname_location with the `-attention with_attention` option.
 
-Object names:
-```bash
-$ th train_rnn_with_cnn_finetune.lua -gpuid 1 -input_h5 coco/cocotalk_withcats_withpos_yolo.h5 -input_json coco/cocotalk.json  -language_eval 1 -generate_from objname -id objname
-```
-
-Object names + locations:
-```bash
-$ th train_rnn_with_cnn_finetune.lua -gpuid 2 -input_h5 coco/cocotalk_withcats_withpos_yolo.h5 -input_json coco/cocotalk.json  -language_eval 1 -generate_from objname_location -id objname_location
-```
-
-Object names + locations + image:
-```bash
-$ th train_rnn_with_cnn_finetune.lua -gpuid 0 -input_h5 coco/cocotalk_withcats_withpos_yolo.h5 -input_json coco/cocotalk.json  -language_eval 1 -generate_from objname_location_image -id objname_location_image
-```
-
-CNN image features (the default Neuraltalk2 implementation):
-```bash
-$ th train_rnn_with_cnn_finetune.lua -gpuid 3 -input_h5 coco/cocotalk_withcats_withpos_yolo.h5 -input_json coco/cocotalk.json  -language_eval 1 -generate_from image -id image
-```
 
 # NeuralTalk2
 
