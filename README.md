@@ -13,12 +13,13 @@ th train.lua -generate_from objname_location -input_h5 coco/cocotalk_objname_loc
 ```
 You can optionally use attention mechanism for generating from `objclass`, `objname`, and `objname_location` with the `-attention with_attention` option.
 
-To generate `cocotalk_objname_location.h5` thant contains [YOLO2](https://pjreddie.com/darknet/yolo/) detected object names, locations, and original COCO captions:
+To generate `cocotalk_objname_location.h5` that contains [YOLO2](https://pjreddie.com/darknet/yolo/) detected object names, locations, and original COCO captions:
  1. setup training files according to https://github.com/karpathy/neuraltalk2/#id-like-to-train-my-own-network-on-ms-coco
  2. collect object detection results on MS COCO dataset according to https://github.com/xuwangyin/darknet/tree/yolo-coco-result, put the detection result file `coco_detection_result` into `./coco/` directory
  3. inside the `coco/` directory run `python detection_add_captions.py`, which will generate a json file `coco_yolo_objname_location.json` that contains detected object names, locations and captions for each image.
  4. use the following command to generate the hdf5 file `python prepro_obj2text.py --input_json coco/coco_yolo_objname_location.json --images_root coco/images --word_count_threshold 5 --output_json coco/cocotalk.json --output_h5 coco/cocotalk_objname_location.h5`
 
+The followings are the original Neuraltalk2 README.
 
 # NeuralTalk2
 
