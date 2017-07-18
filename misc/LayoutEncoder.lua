@@ -310,7 +310,8 @@ function layer:updateOutput(input)
     local xt
     if t == 1 then
       -- feed in the images
-      xt = torch.zeros(batch_size, self.input_encoding_size):cuda() -- NxK sized input
+      xt = torch.zeros(batch_size, self.input_encoding_size) -- NxK sized input
+      if self.core:type() == 'torch.CudaTensor' then xt = xt:cuda() end
     elseif t == 2 then
       -- feed in the start tokens
       local it = torch.LongTensor(batch_size):fill(self.vocab_size+1)

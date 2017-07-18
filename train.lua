@@ -263,9 +263,11 @@ local function compute_forward_feats(data, protos, opt)
 
   -- bbox_coords shape batch_size x seq_length x 4
   local bbox_coords = bboxencode2coords(data.bbox)
-  local bbox_coords_T = bbox_coords:transpose(1, 2):cuda()
+  local bbox_coords_T = bbox_coords:transpose(1, 2)
+  if opt.gpuid >= 0 then bbox_coords_T = bbox_coords_T:cuda() end
   -- data.full_category is of shape batch_size x seq_length
-  local data_full_category_T = data.full_category:transpose(1, 2):cuda()
+  local data_full_category_T = data.full_category:transpose(1, 2)
+  if opt.gpuid >= 0 then data_full_category_T = data_full_category_T:cuda() end
   local data_category_T = data.category:transpose(1, 2)
 
   if opt.generate_from == 'image' then

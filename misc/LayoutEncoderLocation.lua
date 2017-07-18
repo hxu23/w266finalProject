@@ -315,14 +315,19 @@ function layer:updateOutput(inputs)
     local xt_spatial
     if t == 1 then
       -- feed in the images
-      xt = torch.zeros(batch_size, self.input_encoding_size):cuda() -- NxK sized input
-      xt_spatial = torch.zeros(batch_size, spatial:size(3)):cuda() -- NxK sized input
+      xt = torch.zeros(batch_size, self.input_encoding_size) -- NxK sized input
+      xt_spatial = torch.zeros(batch_size, spatial:size(3)) -- NxK sized input
+      if self.core:type() == 'torch.CudaTensor' then
+        xt = xt:cuda()
+        xt_spatial = xt_spatial:cuda()
+      end
     elseif t == 2 then
       -- feed in the start tokens
       local it = torch.LongTensor(batch_size):fill(self.vocab_size+1)
       self.lookup_tables_inputs[t] = it
       xt = self.lookup_tables[t]:forward(it) -- NxK sized input (token embedding vectors)
-      xt_spatial = torch.zeros(batch_size, spatial:size(3)):cuda() -- NxK sized input
+      xt_spatial = torch.zeros(batch_size, spatial:size(3)) -- NxK sized input
+      if self.core:type() == 'torch.CudaTensor' then xt_spatial = xt_spatial:cuda() end
     else
       -- feed in the rest of the sequence...
       local it = seq[t-2]:clone()

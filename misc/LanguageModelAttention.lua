@@ -117,7 +117,8 @@ function layer:sample(context, opt)
 
     local xt, it, sampleLogprobs
     if t == 1 then
-      xt = torch.zeros(batch_size, self.input_encoding_size):cuda()
+      xt = torch.zeros(batch_size, self.input_encoding_size)
+      if self.core:type() == 'torch.CudaTensor' then xt = xt:cuda() end
     elseif t == 2 then
       -- feed in the start tokens
       it = torch.LongTensor(batch_size):fill(self.vocab_size+1)
@@ -314,7 +315,8 @@ function layer:updateOutput(input)
     local can_skip = false
     local xt
     if t == 1 then
-      xt = torch.zeros(batch_size, self.input_encoding_size):cuda()
+      xt = torch.zeros(batch_size, self.input_encoding_size)
+      if self.core:type() == 'torch.CudaTensor' then xt = xt:cuda() end
     elseif t == 2 then
       -- feed in the start tokens
       local it = torch.LongTensor(batch_size):fill(self.vocab_size+1)
