@@ -244,6 +244,8 @@ protos.lm:createClones()
 protos.layout_encoder:createClones()
 collectgarbage() -- "yeah, sure why not"
 
+-- convert bbox encoded integer to (x,y,width,height)
+-- bbox encoded: x*1e9 + y*1e6 + width*1e3 + height
 local function bboxencode2coords(bbox_encode)
   local x = torch.div(bbox_encode, 1e9)
   local y = torch.div(bbox_encode % 1e9, 1e6)
@@ -254,6 +256,7 @@ local function bboxencode2coords(bbox_encode)
   bbox_coords[{ {}, {}, 2 }] = y
   bbox_coords[{ {}, {}, 3 }] = width
   bbox_coords[{ {}, {}, 4 }] = height
+  -- 608x608 is the YOLO object detection output dimention
   bbox_coords = bbox_coords:float():div(608)
   return bbox_coords
 end
