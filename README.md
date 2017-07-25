@@ -1,6 +1,6 @@
 
 # OBJ2TEXT
-OBJ2TEXT is a sequence-to-sequence model that takes object layout (sequence of pairs of object names and locations) as input and generates a natural language description of the input layout. This repository contains code for running all the experiments in the paper “OBJ2TEXT: Generating Visually Descriptive Language from Object Layouts”. You can train different models by specifying different values for the option `-generate_from`:
+OBJ2TEXT is a sequence-to-sequence model that takes object layout (sequence of pairs of object names and locations) as input and generates a natural language description of the input layout. This repository contains code for running all the experiments in the paper [OBJ2TEXT: Generating Visually Descriptive Language from Object Layouts](https://arxiv.org/abs/1707.07102). You can train different models by specifying different values for the option `-generate_from`:
  * `objclass`, generate caption from a sequence of object classes (the set of object names with all duplicates removed)
  * `objname`, generate caption from a sequence of object names
  * `objname_location`, generate caption from a sequence of pairs of object names and bounding-box locations
