@@ -1,4 +1,12 @@
-<<<<<<< HEAD
+W266 Final Project: Noah Randolph and Harry Xu
+
+Original obj2text repo README below:
+
+
+
+
+
+___
 
 # OBJ2TEXT
 :point_right: Checkout [the Pytorch implementation](https://github.com/xuwangyin/pytorch-tutorial/tree/master/tutorials/03-advanced/image_captioning).
@@ -179,5 +187,3 @@ Parts of this code were written in collaboration with my labmate [Justin Johnson
 I'm very grateful for [NVIDIA](https://developer.nvidia.com/deep-learning)'s support in providing GPUs that made this work possible.
 
 I'm also very grateful to the maintainers of Torch for maintaining a wonderful deep learning library.
-
->>>>>>> 6d4783488df1542f3d0176ea0fbb01b32d0af82f
