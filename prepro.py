@@ -31,7 +31,8 @@ import string
 # non-standard dependencies:
 import h5py
 import numpy as np
-from scipy.misc import imread, imresize
+from skimage.transform import resize
+from imageio import imread
 
 def prepro_captions(imgs):
   
@@ -184,7 +185,7 @@ def main(params):
     # load the image
     I = imread(os.path.join(params['images_root'], img['file_path']))
     try:
-        Ir = imresize(I, (256,256))
+        Ir = resize(I, (256,256))
     except:
         print 'failed resizing image %s - see http://git.io/vBIE0' % (img['file_path'],)
         raise

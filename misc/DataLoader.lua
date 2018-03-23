@@ -89,7 +89,7 @@ function DataLoader:getBatch(opt)
   local category_batch = torch.LongTensor(batch_size, self.seq_length)
   local full_category_batch = torch.LongTensor(batch_size, self.seq_length*6)
   local bbox_batch = torch.LongTensor(batch_size, self.seq_length*6)
-  local bbox_orgin_batch = torch.LongTensor(batch_size, self.seq_length*6)
+ -- local bbox_orgin_batch = torch.LongTensor(batch_size, self.seq_length*6)
   local max_index = #split_ix
   local wrapped = false
   local infos = {}
@@ -109,9 +109,9 @@ function DataLoader:getBatch(opt)
 
     category_batch[i] = self.h5_file:read('/category'):partial({ix,ix}, {1, self.seq_length})
     full_category_batch[i] = self.h5_file:read('/full_category'):partial({ix,ix}, {1, self.seq_length*6})
-    bbox_batch[i] = self.h5_file:read('/bbox_resize'):partial({ix,ix}, {1, self.seq_length*6})
-    bbox_orgin_batch[i] = self.h5_file:read('/bbox'):partial({ix,ix}, {1, self.seq_length*6})
-
+   -- bbox_batch[i] = self.h5_file:read('/bbox_resize'):partial({ix,ix}, {1, self.seq_length*6})
+   -- bbox_orgin_batch[i] = self.h5_file:read('/bbox'):partial({ix,ix}, {1, self.seq_length*6})
+    bbox_batch[i] = self.h5_file:read('/bbox'):partial({ix,ix}, {1, self.seq_length*6})
     -- fetch the sequence labels
     local ix1 = self.label_start_ix[ix]
     local ix2 = self.label_end_ix[ix]
@@ -148,7 +148,7 @@ function DataLoader:getBatch(opt)
   data.category = category_batch
   data.full_category = full_category_batch
   data.bbox = bbox_batch
-  data.bbox_orgin = bbox_orgin_batch
+ -- data.bbox_orgin = bbox_orgin_batch
   return data
 end
 
