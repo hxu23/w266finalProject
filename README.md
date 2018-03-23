@@ -1,6 +1,6 @@
 # W266 Final Project: Noah Randolph and Harry Xu
 
-## Original obj2text repo README below:
+#### Original obj2text repo README below:
 ___
 
 # OBJ2TEXT
